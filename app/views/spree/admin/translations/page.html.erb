@@ -1,0 +1,14 @@
+<%= render :partial => 'spree/admin/shared/configuration_menu' %>
+<%= render :partial => 'spree/shared/error_messages', locals: { target: @page } %>
+
+<% content_for :page_title do %>
+  <%= Spree.t(:page_edit) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t(:back_to_pages_list), spree.admin_pages_path, :icon => 'icon-arrow-left' %>
+  </li>
+<% end %>
+
+<%= render 'form' %>

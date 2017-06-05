@@ -19,6 +19,11 @@ class Spree::Page < ActiveRecord::Base
 
   before_save :update_positions_and_slug
 
+  translates :title, :body, :slug, :meta_description, :meta_keywords, :meta_title, :foreign_link, :fallbacks_for_empty_translations => true
+  # Classpath bug; undefined method `whitelisted_ransackable_associations'
+  include Spree::RansackableAttributes
+  include SolidusGlobalize::Translatable
+
   def initialize(*args)
     super(*args)
 
