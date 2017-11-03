@@ -6,7 +6,7 @@ module Spree::PagesHelper
 
   #Allows to generate the correct url for each page and each locale. Call it from your views
   def switch_language(locale)
-		page = Spree::Page.visible.with_translations.find_by_slug(request.path)
+		page = Spree::Page.visible.with_translations.find_by(slug: request.path)
 		if page.nil?
 			url_for(:locale => locale)
 		else
