@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'solidus_static_content'
-  s.version     = '1.1.1'
+  s.version     = '1.1.2'
   s.summary     = 'Extention to manage the static pages for your Spree shop.'
   s.description = s.summary
   s.required_ruby_version = '>= 1.9.3'

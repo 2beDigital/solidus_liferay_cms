@@ -10,7 +10,7 @@ module Spree::PagesHelper
 		if page.nil?
 			url_for(:locale => locale)
 		else
-			Spree::Page::Translation.where(spree_page_id: page.id, locale: locale).first.slug
+			Spree::Page::Translation.where(spree_page_id: page.id, locale: locale).first.slug rescue page.slug
 		end
 	end
 end
