@@ -1,28 +1,28 @@
-# Solidus Static Content
+# Solidus Liferay Cms
 
-[![Build Status](https://travis-ci.org/solidusio-contrib/solidus_static_content.svg)](https://travis-ci.org/solidusio-contrib/solidus_static_content)
 
-A fork of the [Spree extension][1] for compatibility with [Solidus][7].
+A fork of the [Solidus extension][1] for compatibility with [Solidus][7].
 
-Good, clean content management of pages for Spree. You can use this to:
+Good, clean content management of pages for Solidus, managing web content from Portal Liferay (7.1). You can use this to:
 
 - Add and manage static pages such as an 'About' page.
 - Show a static page instead of existing dynamic pages such as the home page,
   products pages, and taxon pages.
+- Manage de web content with Portal Liferay
 
 ## Basic Installation
 
 Add to your `Gemfile`:
 
 ```ruby
-gem 'solidus_static_content', github: 'solidusio-contrib/solidus_static_content'
+gem 'solidus_liferay_cms', github: '2bedigital/solidus_liferay_cms'
 ```
 
 Run:
 
 ```
 $ bundle install
-$ bundle exec rails g solidus_static_content:install
+$ bundle exec rails g solidus_liferay_cms:install
 ```
 
 That's all!
@@ -31,7 +31,7 @@ That's all!
 ## HowTo
 
 Using the 'Pages' option in the admin tab, you can add static pages to your
-Spree install. The page content can be pulled directly from the database, be a
+Solidus install. The page content can be pulled directly from the database, be a
 separate layout file or rendered as a partial.
 
 In the admin tab, use the 'New page' option to create a new static page.
@@ -40,13 +40,13 @@ The title, slug, body, and meta fields will replace their respective page
 elements on load. The title, slug and body element are all required fields.
 
 Body text provided without a layout / partial being specified will be loaded in
-the spree_application layout after it is pulled from the database.
+the Solidus_application layout after it is pulled from the database.
 
 
 ### Layout and Partial Rendering
 
-To render an entire page without the spree_application layout, specify a
-relative path to the layout file (eg.  `spree/layouts/layout_file_name`). This
+To render an entire page without the Solidus_application layout, specify a
+relative path to the layout file (eg.  `Solidus/layouts/layout_file_name`). This
 file will not be prefixed with an underscore as it is a layout, not a partial.
 
 To render a partial, specify the path in the layout file name and check the
@@ -93,13 +93,3 @@ Starting point:
 * Make your changes
 * Ensure specs pass by running `bundle exec rspec spec`
 * Submit your pull request
-
-Copyright (c) 2014 [Peter Berkenbosch][4] and [contributors][5], released under the [New BSD License][6]
-
-[1]: https://github.com/spree-contrib/spree_static_content/
-[2]: http://www.fsf.org/licensing/essays/free-sw.html
-[3]: https://github.com/solidusio-contrib/solidus_static_content/issues
-[4]: https://github.com/peterberkenbosch
-[5]: https://github.com/solidusio-contrib/solidus_static_content/graphs/contributors
-[6]: ./LICENSE.md
-[7]: https://solidus.io/

@@ -17,6 +17,7 @@ en:
         slug: Slug
         title: Title
         visible: Visible
+        article_id: Web content id
     models:
       spree/page:
         few: Pages
@@ -27,6 +28,7 @@ en:
     admin:
       tab:
         Pages: Pages
+        liferay_settings: Liferay Settings
     back_to_static_pages_list: "Back to static pages list"
     page: Page
     pages: Pages
@@ -35,3 +37,15 @@ en:
       new_page: New page
       editing_page: Editing page
       link: Link
+    web_content_not_found: Web content not found, please check the id of the web content or your Liferay credentials
+    liferay_settings: Liferay Settings
+    client_id: Client identifier (client_id)
+    site_url: Site Url
+    redirect_uri: Redirect url
+    back_to_liferay_settings_list: Back to liferay settins list
+    stores: Stores
+    go_to_static_pages_list: Go to static pages list
+    update_token: Update token
+    get_token: Get token
+    token_has_been_updated: Token has been updated
+    token_has_not_been_updated: Could not been updated the token, please chek your liferay's settings

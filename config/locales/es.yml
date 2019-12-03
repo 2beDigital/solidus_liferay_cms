@@ -17,6 +17,7 @@ es:
         slug: Slug
         title: Título
         visible: Visible
+        article_id: Identificador contenido web
     models:
       spree/page:
         few: Páginas
@@ -27,6 +28,7 @@ es:
     admin:
       tab:
         pages: Páginas
+        liferay_settings: Configuración Liferay
     back_to_static_pages_list: "Volver a la lista de páginas estáticas"
     page: Página
     pages: Páginas
@@ -35,3 +37,15 @@ es:
       new_page: "Nueva página"
       editing_page: "Edición de página"
       link: Enlace
+    web_content_not_found: Contenido web no encontrado, por favor revise el id del contenido web o sus credenciales de Liferay
+    liferay_settings: Configuración Liferay
+    client_id: Identificador de app (client_id)
+    site_url: Dirección web (site_url)
+    redirect_uri: Url de redirección
+    back_to_liferay_settings_list: Regresar al listado de configuración
+    stores: Tiendas
+    go_to_static_pages_list: Ir a listado de páginas
+    update_token: Actualizar token
+    get_token: Obtener token
+    token_has_been_updated: El token ha sido actualizado
+    token_has_not_been_updated: No se ha podido actualizar el token de accesso, comprueba la configuración de acceso a liferay

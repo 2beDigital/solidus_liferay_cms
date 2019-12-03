@@ -1,14 +1,14 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
-  s.name        = 'solidus_static_content'
-  s.version     = '1.1.3'
-  s.summary     = 'Extention to manage the static pages for your Spree shop.'
+  s.name        = 'solidus_liferay_cms'
+  s.version     = '0.0.1'
+  s.summary     = 'Extention to manage the static pages for your Solidus shop connected to Portal Liferay.'
   s.description = s.summary
   s.required_ruby_version = '>= 1.9.3'
 
-  s.authors      = [%q{Peter Berkenbosch}, %q{Roman Smirnov}]
-  s.email        = 'peter@pero-ict.nl'
-  s.homepage     = 'http://spreecommerce.com/extensions/139-static-content'
+  s.authors      = "Noel Díaz"
+  s.email        = 'noel@2bedigital.com'
+  s.homepage     = 'https:www.2bedigital.com'
   s.license      = %q{BSD-3}
 
   s.files        = `git ls-files`.split("\n")
