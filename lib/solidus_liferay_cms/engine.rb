@@ -1,8 +1,8 @@
-module SolidusStaticContent
+module SolidusLiferayCms
   class Engine < Rails::Engine
     require 'spree/core'
     isolate_namespace Spree
-    engine_name 'solidus_static_content'
+    engine_name 'solidus_liferay_cms'
 
     config.autoload_paths += %W(#{config.root}/lib)
 

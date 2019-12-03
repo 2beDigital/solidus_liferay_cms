@@ -1,14 +1,10 @@
-module SolidusStaticContent
+module SolidusLiferayCms
   module Generators
     class InstallGenerator < Rails::Generators::Base
       class_option :auto_run_migrations, type: :boolean, default: false
 
-      def add_stylesheets
-        inject_into_file 'vendor/assets/stylesheets/spree/frontend/all.css', " *= require spree/frontend/spree_static_content\n", before: /\*\//, verbose: true
-      end
-
       def add_migrations
-        run 'bundle exec rake railties:install:migrations FROM=solidus_static_content'
+        run 'bundle exec rake railties:install:migrations FROM=solidus_liferay_cms'
       end
 
       def run_migrations
