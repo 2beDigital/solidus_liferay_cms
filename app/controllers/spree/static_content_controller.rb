@@ -6,6 +6,14 @@ class Spree::StaticContentController < Spree::StoreController
 
   def show
     @page = Spree::Page.by_store(current_store).visible.find_by!(slug: request.path)
+    if (Time.now - @page.updated_at) > 30.second
+      begin
+        @page.get_web_content(current_store,@page.article_id, I18n.locale)
+        @page.save
+      rescue Exception => e
+        false
+      end
+    end
   end
 
   private
