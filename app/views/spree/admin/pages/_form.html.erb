@@ -1,26 +1,30 @@
 <div data-hook="admin_page_form_fields">
-  <div class="left eight columns alpha" data-hook="admin_page_form_left">
+  <div class="alpha omega twelve columns" data-hook="admin_page_form_left">
 
     <%= f.field_container :title do %>
       <%= f.label :title %> <span class="required">*</span><br />
-      <%= f.text_field :title, :class => 'fullwidth title' %>
+      <%= f.text_field :title, :class => 'fullwidth title required' %>
       <%= f.error_message_on :title %>
     <% end %>
 
     <%= f.field_container :slug do %>
       <%= f.label :slug %> <span class="required">*</span><br />
-      <%= f.text_field :slug, :class => 'fullwidth title' %>
+      <%= f.text_field :slug, :class => 'fullwidth title required' %>
       <%= f.error_message_on :slug %>
     <% end %>
-
-    <%= f.field_container :body do %>
-      <%= f.label :body %> <span class="required">*</span><br />
-      <%= f.text_area :body, {rows: 12, :class => 'fullwidth'} %>
-      <%= f.error_message_on :body %>
+    <% if @object.body.present? %>
+      <div class='col-12' style="min-height: 400px;position: relative;overflow: hidden;">
+        <%= raw(@object.body) %>
+      </div>
     <% end %>
 
   </div>
   <div class="right four columns omega" data-hook="admin_page_form_right">
+    <%= f.field_container :article_id do %>
+      <%= f.label :article_id %><span class="required">*</span><br />
+      <%= f.text_field :article_id, :class => 'fullwidth title required', required: true %>
+      <%= f.error_message_on :article_id %>
+    <% end %>
 
     <%= f.field_container :layout do %>
       <%= f.label :layout %><br />

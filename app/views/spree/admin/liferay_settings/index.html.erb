@@ -1,0 +1,62 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:liferay_settings) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <% if @liferay_setting.present? %>
+    <li>
+      <%= link_to Spree.t(:edit), edit_admin_liferay_setting_url(@liferay_setting), class: 'button' %>
+    </li>
+    <li><%= button_link_to Spree.t(:go_to_static_pages_list), spree.admin_pages_url, class: 'button' %></li>
+  <% else %>
+  	<li>
+  		<%= link_to Spree.t(:new), new_object_url, :icon => 'icon-arrow-left', class: 'button' %>
+  	</li>
+  <% end %>
+<% end %>
+
+<% if @liferay_setting.present? %>
+  <table class="index">
+    <colgroup>
+      <col style="width: 10%">
+      <col style="width: 15%">
+      <col style="width: 25%">
+      <col style="width: 25%">
+      <col style="width: 15%">
+      <col style="width: 10%">
+    </colgroup>
+    <thead>
+      <tr data-hook="admin_rgpds_index_headers">
+        <th><%= Spree.t(:email) %></th>
+        <th><%= Spree.t(:client_id) %></th>
+        <th><%= Spree.t(:site_url) %></th>
+        <th><%= Spree.t(:redirect_uri) %></th>
+        <th><%= Spree.t(:store) %></th>
+        <th class="actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr id="<%= spree_dom_id @liferay_setting %>" data-hook="admin_liferay_settings_index_rows" class="<%= cycle('odd', 'even')%>">
+          <td class="align-left"><%= @liferay_setting.email %></td>
+          <td class="align-left"><%= truncate(@liferay_setting.client_id, length: 50) %></td>
+          <td class="align-left"><%= @liferay_setting.site_url %></td>
+          <td class="align-left"><%= @liferay_setting.redirect_uri %></td>
+          <td class="align-left"><%= @liferay_setting.store.name %></td>
+          <td class="actions">
+            <% if can?(:update, @liferay_setting) %>
+              <%= link_to_edit @liferay_setting, :no_text => true %>
+            <% end %>
+            <% if can?(:destroy, @liferay_setting) %>
+              <%= link_to_delete @liferay_setting, :no_text => true %>
+            <% end %>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+<% else %>
+  <div class="no-objects-found">
+    <%= render 'spree/admin/shared/no_objects_found',
+                 resource: Spree::LiferaySetting,
+                 new_resource_url: new_object_url %>
+  </div>
+<% end %>

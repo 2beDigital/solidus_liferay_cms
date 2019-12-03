@@ -1,0 +1,27 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:liferay_settings) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <% if @liferay_setting.token.present? %>
+    <li>
+      <%= link_to Spree.t(:update_token), admin_get_access_token_path, :icon => 'icon-arrow-left', class: 'button', method: 'post' %>
+    </li>
+  <% else %>
+    <li>
+      <%= link_to Spree.t(:get_token), admin_get_access_token_path, :icon => 'icon-arrow-left', class: 'button', method: 'post' %>
+    </li>
+  <% end %>
+	<li>
+    <%= link_to Spree.t(:back_to_liferay_settings_list), admin_liferay_settings_path, class: 'button' %>
+  </li>
+<% end %>
+
+<%= render :partial => 'spree/shared/error_messages', :locals => { :target => @liferay_setting } %>
+
+<%= form_for [:admin,  @liferay_setting] do |f| %>
+  <fieldset class="no-border-top">
+    <%= render :partial => 'form', :locals => { :f => f } %>
+    <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
+  </fieldset>
+<% end %>

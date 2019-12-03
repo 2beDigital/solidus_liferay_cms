@@ -1,0 +1,53 @@
+<div class="container">
+  <div data-hook="admin_liferay_settings_form_fields" class="row">
+    <div class="col-md-12">
+        <%= f.field_container :email do %>
+          <%= f.label :email %>
+          <%= f.text_field :email, class: 'fullwidth' %>
+        <% end %>
+      </div>
+      <div class="col-md-12">
+        <%= f.field_container :password do %>
+          <%= f.label :password %>
+          <%= f.text_field :password, class: 'fullwidth', type: 'password' %>
+        <% end %>
+      </div>
+      <div class="col-md-12">
+        <%= f.field_container :client_id do %>
+          <%= f.label :client_id %>
+          <%= f.text_field :client_id, class: 'fullwidth' %>
+        <% end %>
+      </div>
+      <div class="col-md-12">
+        <%= f.field_container :secret_id do %>
+          <%= f.label :secret_id %>
+          <%= f.text_field :secret_id, class: 'fullwidth' %>
+        <% end %>
+      </div>
+      <div class="col-md-12">
+        <%= f.field_container :site_url do %>
+          <%= f.label :site_url %>
+          <%= f.text_field :site_url, class: 'fullwidth' %>
+        <% end %>
+      </div>
+      <div class="col-md-12">
+        <%= f.field_container :redirect_uri do %>
+          <%= f.label :redirect_uri %>
+          <%= f.text_field :redirect_uri, class: 'fullwidth' %>
+        <% end %>
+      </div>
+      <div class="col-md-12">
+        <%= f.field_container :group_id do %>
+          <%= f.label :group_id %>
+          <%= f.text_field :group_id, class: 'fullwidth' %>
+        <% end %>
+      </div>
+      <div class="col-md-3">
+        <div data-hook="store_select" class="field">
+          <%= f.label Spree.t(:store) %>
+          <div class="clear"></div>
+          <%= collection_select(:liferay_setting, :store_id, Spree::Store.all, :id, :name, {}, {:class => 'select2 fullwidth'}) %>
+        </div>
+      </div>
+  </div>
+</div>
