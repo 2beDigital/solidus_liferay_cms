@@ -19,7 +19,7 @@
     <% end %>
   <% end %>
 
-  <% cache([I18n.locale, @page, (@page[:updated_at] || Date.today).to_s(:number)], expires_in: 1.hour ) do %>
+  <% cache([I18n.locale, @page, (@page[:updated_at] || Date.today).to_s(:number)], expires_in: 6.hour ) do %>
     <h1><%= @page.title %></h1>
     <div id="page_content">
         <%= raw @page.body %>

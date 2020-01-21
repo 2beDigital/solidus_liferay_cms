@@ -39,7 +39,7 @@ class Spree::Page < ActiveRecord::Base
     @liferay_setting = Spree::LiferaySetting.find_by(store_id: store.id)
     content = SolidusLiferayConnect::ManageWebContent.get_web_content(@liferay_setting, id, locale)
     if content
-      self.body = content
+      self.body = content.force_encoding('UTF-8')
       return true
     else
       return false
