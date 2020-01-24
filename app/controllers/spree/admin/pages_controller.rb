@@ -4,6 +4,7 @@ class Spree::Admin::PagesController < Spree::Admin::ResourceController
 	private
 
 	def get_body
+		update_token
 		if params[:page][:translations_attributes].present?
 			SolidusI18n::Config.available_locales.map do |locale|
 				I18n.locale = locale
@@ -16,5 +17,17 @@ class Spree::Admin::PagesController < Spree::Admin::ResourceController
 				flash[:error] = Spree.t(:web_content_not_found)
 		end
 		render_after_update_error if flash[:error].present?
+	end
+
+	def update_token
+		@liferay_setting ||= Spree::LiferaySetting.find_by(store_id: current_store.id)
+		client = SolidusLiferayConnect::LiferayOauth2Authorization.client(@liferay_setting)
+		begin
+			response = client.client_credentials.get_token
+			@liferay_setting.update_attributes(token: response.token, oauth2_client: client)
+			return true
+		rescue StandardError => e
+			return false
+		end
 	end
 end
