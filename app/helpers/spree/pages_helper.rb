@@ -3,11 +3,11 @@ module Spree::PagesHelper
   	cache_key = "render-snippet-#{slug}"
 		Rails.cache.fetch("#{cache_key}/page", expires_in: 6.hour) do
 	    page = Spree::Page.find_by(slug: slug)
-	    if page
+	    if page && page.article_id.present?
 		    page.get_web_content(current_store,page.article_id, I18n.locale)
 	      page.save
-		    raw page.body
 		  end
+    	raw page.body if page
 		end
   end
 end

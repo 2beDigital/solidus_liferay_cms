@@ -12,17 +12,18 @@
       <%= f.text_field :slug, :class => 'fullwidth title required' %>
       <%= f.error_message_on :slug %>
     <% end %>
-    <% if @object.body.present? %>
-      <div class='col-12' style="min-height: 400px;position: relative;overflow: hidden;">
-        <%= raw(@object.body) %>
-      </div>
+
+    <%= f.field_container :body do %>
+      <%= f.label :body %> <span class="required">*</span><br />
+      <%= f.text_area :body, {rows: 12, :class => 'fullwidth'} %>
+      <%= f.error_message_on :body %>
     <% end %>
 
   </div>
   <div class="right four columns omega" data-hook="admin_page_form_right">
     <%= f.field_container :article_id do %>
-      <%= f.label :article_id %><span class="required">*</span><br />
-      <%= f.text_field :article_id, :class => 'fullwidth title required', required: true %>
+      <%= f.label :article_id %><br />
+      <%= f.text_field :article_id, :class => 'fullwidth title'%>
       <%= f.error_message_on :article_id %>
     <% end %>
 

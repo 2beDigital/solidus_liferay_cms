@@ -1,7 +1,11 @@
 class Spree::Admin::PagesController < Spree::Admin::ResourceController
-	before_action :get_body, only: [:create, :update]
+	before_action :get_body, :if => :article_present?, only: [:create, :update]
 	
 	private
+
+	def article_present?
+		params[:page][:article_id].present?
+	end
 
 	def get_body
 		update_token

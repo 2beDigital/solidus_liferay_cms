@@ -16,7 +16,7 @@ class Spree::Page < ActiveRecord::Base
   scope :sidebar_links, -> { where(:show_in_sidebar => true).visible }
 
   scope :by_store, lambda { |store| joins(:stores).where("spree_pages_stores.store_id = ?", store) }
-  #before_save :get_web_content
+
   before_save :update_positions_and_slug
 
   translates :title, :body, :slug, :meta_description, :meta_keywords, :meta_title, :foreign_link, :fallbacks_for_empty_translations => true
