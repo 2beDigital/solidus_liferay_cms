@@ -4,7 +4,8 @@ class Spree::Page < ActiveRecord::Base
   has_and_belongs_to_many :stores, :join_table => 'spree_pages_stores'
 
   validates_presence_of :title
-  validates_presence_of [:slug, :body], :if => :not_using_foreign_link?
+  validates_presence_of :slug, :if => :not_using_foreign_link?
+  validates_presence_of :body, :if => :not_article_or_foreing_link_present?
   validates_presence_of :layout, :if => :render_layout_as_partial?
 
   validates :slug, :uniqueness => true, :if => :not_using_foreign_link?
@@ -18,6 +19,8 @@ class Spree::Page < ActiveRecord::Base
   scope :by_store, lambda { |store| joins(:stores).where("spree_pages_stores.store_id = ?", store) }
 
   before_save :update_positions_and_slug
+  before_save :update_token, if: :not_article_present?
+  before_save :get_web_content, if: :not_article_present?
 
   translates :title, :body, :slug, :meta_description, :meta_keywords, :meta_title, :foreign_link, :fallbacks_for_empty_translations => true
   # Classpath bug; undefined method `whitelisted_ransackable_associations'
@@ -35,14 +38,20 @@ class Spree::Page < ActiveRecord::Base
     foreign_link.blank? ? slug : foreign_link
   end
 
-  def get_web_content(store,id,locale)
-    @liferay_setting = Spree::LiferaySetting.find_by(store_id: store.id)
-    content = SolidusLiferayConnect::ManageWebContent.get_web_content(@liferay_setting, id, locale)
-    if content
-      self.body = content.force_encoding('UTF-8')
-      return true
-    else
-      return false
+  def get_web_content
+    @liferay_setting = Spree::LiferaySetting.find_by(store_id: Spree::Store.default.id)
+    SolidusI18n::Config.available_locales.map do |locale|
+      content = SolidusLiferayConnect::ManageWebContent.get_web_content(@liferay_setting, self.article_id, locale)
+      if locale == I18n.default_locale && content 
+        self.body = content.force_encoding('UTF-8')
+      elsif self.translations.find_by(locale: locale).present? && content 
+        self.translations.find_by(locale: locale).body = content.force_encoding('UTF-8')
+        if self.id.present?
+          self.translations.find_by(locale: locale).update_attributes(body: content.force_encoding('UTF-8'))
+        end
+      elsif !self.translations.find_by(locale: locale).present? && content
+        self.translations.new(locale: locale, body: content.force_encoding('UTF-8'), slug: "/#{locale}#{self.slug}", title: self.title)
+      end
     end
   end
 
@@ -65,5 +74,25 @@ class Spree::Page < ActiveRecord::Base
 
   def not_using_foreign_link?
     foreign_link.blank?
+  end
+
+  def not_article_or_foreing_link_present?
+    !(self.article_id.present? || foreign_link.present?)
+  end
+
+  def not_article_present?
+    self.article_id.present?
+  end
+
+  def update_token
+    @liferay_setting ||= Spree::LiferaySetting.find_by(store_id: Spree::Store.default.id)
+    client = SolidusLiferayConnect::LiferayOauth2Authorization.client(@liferay_setting)
+    begin
+      response = client.client_credentials.get_token
+      @liferay_setting.update_attributes(token: response.token, oauth2_client: client)
+      return true
+    rescue StandardError => e
+      return false
+    end
   end
 end
